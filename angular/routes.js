@@ -10,8 +10,8 @@
             getView = function(viewName){
                 return './views/app/' + viewName + '/' + viewName + '.html';
             },
-            viewStatic = function(viewName){
-                return './views/static/' + viewName + '/' + viewName + '.html';
+            staticpage = function(viewName){
+                return './views/staticpage/' + viewName + '/' + viewName + '.html';
             };
 
         $urlRouterProvider.otherwise('/');
@@ -19,154 +19,183 @@
         $stateProvider
             .state('dashboard', {
                 abstract: true,
+                url: '/dashboard',
                 views: {
-                    sidebar: {
+                    'layout': {
+                        templateUrl: dashboard('layout')
+                    },
+                    'sidebar@dashboard': {
                         templateUrl: dashboard('sidebar')
                     },
-                    header: {
+                    'header@dashboard': {
                         templateUrl: dashboard('header')
                     },
-                    main: {}
+                    'main@dashboard': {}
+                }
+            })
+            .state('dashboard.home', {
+                url: '/',
+                data: { pageName: 'Overview' },
+                views: {
+                    'main@dashboard': {
+                        templateUrl: dashboard('home')
+                    }
                 }
             })
             .state('app', {
                 abstract: true,
                 views: {
-                    sidebar: {
+                    'layout': {
+                        templateUrl: getView('layout')
+                    },
+                    'sidebar@app': {
                         templateUrl: getView('sidebar')
                     },
-                    header: {
+                    'header@app': {
                         templateUrl: getView('header')
                     },
-                    main: {}
+                    'main@app': {}
                 }
             })
-            .state('static', {
-                abstract: true,
-                views: {
-                    sidebar: {
-                        templateUrl: viewStatic('sidebar')
-                    },
-                    header: {
-                        templateUrl: viewStatic('header')
-                    },
-                    main: {}
-                }
-            })
-            .state('static.landing', {
+            .state('app.home', {
                 url: '/',
                 data: { pageName: 'Overview' },
                 views: {
-                    'main@': {
-                        templateUrl: viewStatic('landing')
+                    'main@app': {
+                        templateUrl: getView('home')
                     }
                 }
             })
-            .state('static.install', {
+            .state('staticpage', {
+                abstract: true,
+                url: '/page',
+                views: {
+                    'layout': {
+                        templateUrl: staticpage('layout')
+                    },
+                    'sidebar@staticpage': {
+                        templateUrl: staticpage('sidebar')
+                    },
+                    'header@staticpage': {
+                        templateUrl: staticpage('header')
+                    },
+                    'main@staticpage': {}
+                }
+            })
+            .state('staticpage.landing', {
+                url: '/',
+                data: { pageName: 'Overview' },
+                views: {
+                    'main@staticpage': {
+                        templateUrl: staticpage('landing')
+                    }
+                }
+            })
+            .state('staticpage.install', {
                 url: '/install',
                 data: { pageName: 'Install' },
                 views: {
-                    'main@': {
-                        templateUrl: viewStatic('install')
+                    'main@staticpage': {
+                        templateUrl: staticpage('install')
                     }
                 }
             })
-            .state('static.tabs', {
+            .state('staticpage.tabs', {
                 url: '/features',
                 data: { pageName: 'Features' },
                 views: {
-                    'main@': {
-                        templateUrl: viewStatic('tabs')
+                    'main@staticpage': {
+                        templateUrl: staticpage('tabs')
                     }
                 }
             })
-            .state('static.deploy', {
+            .state('staticpage.deploy', {
                 url: '/deploy',
                 data: { pageName: 'Deploy' },
                 views: {
-                    'main@': {
-                        templateUrl: viewStatic('deploy')
+                    'main@staticpage': {
+                        templateUrl: staticpage('deploy')
                     }
                 }
             })
-            .state('static.theme', {
+            .state('staticpage.theme', {
                 url: '/theme',
                 data: { pageName: 'Theme' },
                 views: {
-                    'main@': {
-                        templateUrl: viewStatic('theme')
+                    'main@staticpage': {
+                        templateUrl: staticpage('theme')
                     }
                 }
             })
-            .state('static.toasts', {
+            .state('staticpage.toasts', {
                 url: '/toasts',
                 data: { pageName: 'Toasts' },
                 views: {
-                    'main@': {
-                        templateUrl: viewStatic('toasts')
+                    'main@staticpage': {
+                        templateUrl: staticpage('toasts')
                     }
                 }
             })
-            .state('static.dialogs', {
+            .state('staticpage.dialogs', {
                 url: '/dialogs',
                 data: { pageName: 'Dialogs' },
                 views: {
-                    'main@': {
-                        templateUrl: viewStatic('dialogs')
+                    'main@staticpage': {
+                        templateUrl: staticpage('dialogs')
                     }
                 }
             })
-            .state('static.generators', {
+            .state('staticpage.generators', {
                 url: '/generators',
                 data: { pageName: 'Artisan generators' },
                 views: {
-                    'main@': {
-                        templateUrl: viewStatic('generators')
+                    'main@staticpage': {
+                        templateUrl: staticpage('generators')
                     }
                 }
             })
-            .state('static.jwt_auth', {
+            .state('staticpage.jwt_auth', {
                 url: '/jwt_auth',
                 data: { pageName: 'JSON Web Token Authentication' },
                 views: {
-                    'main@': {
-                        templateUrl: viewStatic('jwt_auth')
+                    'main@staticpage': {
+                        templateUrl: staticpage('jwt_auth')
                     }
                 }
             })
-            .state('static.elixir', {
+            .state('staticpage.elixir', {
                 url: '/elixir',
                 data: { pageName: 'Elixir' },
                 views: {
-                    'main@': {
-                        templateUrl: viewStatic('elixir')
+                    'main@staticpage': {
+                        templateUrl: staticpage('elixir')
                     }
                 }
             })
-            .state('static.rest_api', {
+            .state('staticpage.rest_api', {
                 url: '/rest_api',
                 data: { pageName: 'REST API' },
                 views: {
-                    'main@': {
-                        templateUrl: viewStatic('rest_api')
+                    'main@staticpage': {
+                        templateUrl: staticpage('rest_api')
                     }
                 }
             })
-            .state('static.unsupported_browser', {
+            .state('staticpage.unsupported_browser', {
                 url: '/unsupported_browser',
                 data: { pageName: 'Unsupported Browser' },
                 views: {
-                    'main@': {
-                        templateUrl: viewStatic('unsupported_browser')
+                    'main@staticpage': {
+                        templateUrl: staticpage('unsupported_browser')
                     }
                 }
             })
-            .state('static.misc', {
+            .state('staticpage.misc', {
                 url: '/misc',
                 data: { pageName: 'Miscellaneous features' },
                 views: {
-                    'main@': {
-                        templateUrl: viewStatic('misc')
+                    'main@staticpage': {
+                        templateUrl: staticpage('misc')
                     }
                 }
             });
